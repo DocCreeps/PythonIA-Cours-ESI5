@@ -1,0 +1,86 @@
+variable env  __name__ = ‘__name__’
+Import de librairies mathématiques 
+
+
+Fonction convert_rgb_to_names (param : rgb_tuple)
+	css3_db = const CSS3_HEX_TO_NAMES
+	names = []
+	rgb_values = []
+	Pour chaque color_hex, color_name dans css3_db.objets():
+		fonction qui ajoute un nom à la liste de noms(color_name)
+		fonction qui ajoute le nom une valeur RGB à la liste des valeurs RGB(fonction qui convertit l'hex en rgb(color_hex))
+	
+	kdt_db = arbre équilibré de données de couleurs(rgb_values)
+	distance, index = retourne l'équivalent couleur recherché(rgb_tuple)
+	retourne names[index]
+
+Classe ShapeDetector 
+	Fonction __init__(instance classe)
+		initialisation de la classe (aucun param)
+	Fonction detect(instance classe, c)
+	shape = "unidentified"
+	peri = fonction qui définit la longueur de l'arc(c, True)
+	approx = fonction qui définit l'approximation du contour(c, 0.04 * peri, True)
+
+	Si(longueur(approx) == 3):
+		shape = "triangle"
+	sinon, si(longueur(approx) == 4):
+		(x, y, largeur, hauteur) = fonction qui récupère la taille du rectangle(approx)
+		ar = largeur/ float(hauteur)
+
+		shape = si ar >= 0.95 et ar <= 1.05 alors "square" sinon "rectangle"
+
+	sinon, si (len(approx) == 5):
+		shape = "pentagon"
+		#un switch case aurait peut-être été plus approprié?
+	sinon, si (len(approx) == 6):
+		shape = "hexagon"
+	sinon, si (len(approx) == 10 OU len(approx) == 12):
+		shape = "star"
+	sinon:
+		shape = "circle"
+	retourne shape
+
+
+Si (__name__ == ‘__name__’)
+#main
+	image = f lecture de l'image donnée([PATH])
+	resized =  f changement de taille image(image, int taille)
+	ratio = forme[nb de lignes] image / float forme[nb de lignes] resized
+
+	gray = converti l'image resized en niveau de gris(resized, fonction convert couleur->nuance de gris)
+	blurred = fonction niveau de flou de l'image(gray, niveau de flou, 0)
+	thresh = fonction définisant le seuil de l'image(blurred, 60, 255, binaire du thresh)
+
+	cnts = Trouve les contours de l'image (copie de thresh, contour extrême extérieur
+		, fonction qui compresse les segments pour laisser que les extrémités)
+	cnts = fonction qui prend les contours de l'image(cnts)
+	sd = ShapeDetector()
+
+	Pour chaque contour dans cnts:
+		M = moments spatiaux de l'image(contour)
+		cX = int((Dernier moment / Premier Moment) * ratio)
+		cY = int((Deuxième moment / Premier Moment) * ratio)
+
+		shape = fonction Detect de la classe ShapeDetector (contour)
+		
+		contour = contour en float
+		contour *= ratio
+		contour = contour en int
+		fonction dessine les contours(image, contour, couleur, épaisseur, type de ligne, hiearchy, niveau max, Point)
+		img = fonction qui convertit une image d'un espace de couleur à une autre(image, BGR à HSV)
+	
+		imgRGB = fonction qui convertit une image d'un espace de couleur à une autre(image, BGR à RGB)
+		mean = fonction qui définit la couleur du texte sur la forme détecté en fonction de son background(imgRGB, mask = mask)
+
+		named_color = fonction convert_rgb_to_names(mean)
+
+		mean2 = couleurs RGB - les means
+		objLbl = nom de la forme + nom de la couleur
+		textSize = fonction définit la taille du texte(objLbl, ...)
+		fonction qui met le texte sur l'image détectée
+		fonction qui affiche l'image
+
+	fonction qui attend une touche
+
+
